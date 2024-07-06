@@ -29,7 +29,8 @@ class Controllers {
       success: true,
       statusCode: this.STATUS.OK,
       message: `${this.messageTitle} Fetched Successfully`,
-      data: result,
+      data: result.data,
+      meta: result.meta
     });
   });
 

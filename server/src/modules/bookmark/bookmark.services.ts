@@ -27,10 +27,36 @@ class Services {
 
   /**
    * Read all records
-   * @param
+   * @param query
    */
   async readAll(query: Record<string, unknown>) {
-    return this.model.find(query);
+    const page = query.page ? parseInt(query.page as string) : 1;
+    const limit = query.limit ? parseInt(query.limit as string) : 20;
+    const skip = (page - 1) * limit;
+
+    const searchQuery: Record<string, unknown> = query.title ? { title: { $regex: query.title as string, $options: 'i' } } : {};
+
+    if (query.tag) {
+      searchQuery.tags = { $regex: query.tag as string, $options: 'i' }
+    }
+
+    if (query.type) {
+      searchQuery.type = query.type as string;
+    }
+
+    const totalCount = await this.model.countDocuments(searchQuery);
+    const totalPage = Math.ceil(totalCount / limit);
+
+    const meta = {
+      totalCount,
+      page,
+      limit,
+      totalPage
+    }
+
+    const data = await this.model.find(searchQuery).limit(limit).skip(skip);
+
+    return { data, meta };
   }
 
   /**
