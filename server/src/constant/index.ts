@@ -1,0 +1,1 @@
+export const UserRoles = ['ADMIN', 'USER'] as const;
