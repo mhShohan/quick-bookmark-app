@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import APIError from "../../errorHandler/APIError";
 import Folder from "./folder.model";
 
@@ -33,6 +34,26 @@ class Services {
    */
   async read(id: string, userId: string) {
     return this._isExist(id, userId);
+  }
+
+  /**
+   * Read bookmarks of a folder
+   * @param id 
+   */
+  async bookmarksOfFolder(id: string, userId: string) {
+    await this._isExist(id, userId);
+
+    return this.model.aggregate([
+      { $match: { _id: new Types.ObjectId(id), userId: new Types.ObjectId(userId) } },
+      {
+        $lookup: {
+          from: 'bookmarks',
+          localField: '_id',
+          foreignField: 'folderId',
+          as: 'bookmarks'
+        }
+      }
+    ])
   }
 
   /**

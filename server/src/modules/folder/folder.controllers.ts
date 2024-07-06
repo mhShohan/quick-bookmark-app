@@ -33,7 +33,7 @@ class Controllers {
     });
   });
 
-  // readAll
+  // read
   read = asyncHandler(async (req, res) => {
     const result = await this.services.read(req.params.id, req.user._id);
 
@@ -42,6 +42,18 @@ class Controllers {
       statusCode: this.STATUS.OK,
       message: `${this.messageTitle} Fetched Successfully`,
       data: result,
+    });
+  });
+
+  // read
+  bookmarksOfFolder = asyncHandler(async (req, res) => {
+    const result = await this.services.bookmarksOfFolder(req.params.id, req.user._id);
+
+    this.sendResponse(res, {
+      success: true,
+      statusCode: this.STATUS.OK,
+      message: `${this.messageTitle} an bookmarks Fetched Successfully`,
+      data: result[0],
     });
   });
 

@@ -13,6 +13,7 @@ const folderRoutes = Router();
 folderRoutes.post('/', verifyAuth, validateRequest(validator), folderControllers.create);
 folderRoutes.get('/', verifyAuth, folderControllers.readAll);
 folderRoutes.get('/:id', verifyAuth, folderControllers.read);
-folderRoutes.get('/:id', verifyAuth, folderControllers.update);
+folderRoutes.get('/:id/folder', verifyAuth, folderControllers.bookmarksOfFolder);
+folderRoutes.patch('/:id', verifyAuth, folderControllers.update);
 
 export default folderRoutes;
