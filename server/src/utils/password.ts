@@ -7,7 +7,7 @@ import config from '../config';
  * @returns hashed password
  */
 const hash = async (password: string) => {
-  return bcrypt.hash(password, config.SALT_ROUNDS!);
+  return bcrypt.hash(password, Number(config.SALT_ROUNDS!));
 };
 
 

@@ -6,9 +6,9 @@ import verifyAuth from '../../middlewares/verifyAuth';
 
 const authRoutes = Router();
 
-authRoutes.post('/', verifyAuth, authControllers.self);
+authRoutes.get('/self', verifyAuth, authControllers.self);
 authRoutes.patch('/', verifyAuth, authControllers.update);
-authRoutes.post('/register', authControllers.register);
+authRoutes.post('/register', validateRequest(authValidators.register), authControllers.register);
 authRoutes.post('/login', validateRequest(authValidators.login), authControllers.login);
 
 export default authRoutes;
