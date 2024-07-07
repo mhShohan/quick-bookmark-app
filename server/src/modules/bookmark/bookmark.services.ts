@@ -54,7 +54,7 @@ class Services {
       totalPage
     }
 
-    const data = await this.model.find(searchQuery).limit(limit).skip(skip);
+    const data = await this.model.find(searchQuery).sort({ stared: -1 }).limit(limit).skip(skip);
 
     return { data, meta };
   }

@@ -5,6 +5,7 @@ export interface IBookmark {
   link: string;
   folderId: Types.ObjectId;
   userId: Types.ObjectId;
+  stared?: boolean;
   type: 'video' | 'blog' | 'book' | 'documentation';
   tags?: string[];
 }
@@ -15,6 +16,7 @@ const schema = new Schema<IBookmark>({
   folderId: { type: Schema.Types.ObjectId, ref: 'Folder', required: true },
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   type: { type: String, enum: ['video', 'blog', 'book', 'documentation'], required: true },
+  stared: { type: Boolean, default: false },
   tags: [{ type: String }],
 }, { timestamps: true });
 
