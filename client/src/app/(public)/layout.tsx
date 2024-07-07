@@ -7,7 +7,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     <Stack
       sx={{
         minHeight: '100vh',
-        backgroundImage: `url(/assets/bg-1.jpg)`,
+        backgroundImage: `url(/assets/bg-2.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: 'white',

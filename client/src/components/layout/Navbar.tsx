@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // mui
-import { IconButton, Stack, useTheme } from '@mui/material';
+import { Container, IconButton, Stack, useTheme } from '@mui/material';
 import styled from '@mui/material/styles/styled';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // project imports
 import { navbarData } from '@/data';
 import { Dispatch, SetStateAction, useState } from 'react';
+import Logo from '../UI/Logo';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -19,8 +20,9 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <>
-      <Stack sx={{ p: 1 }}>
+    <Container maxWidth='lg'>
+      <Stack justifyContent='space-between' direction='row' alignItems='center' sx={{ p: 2 }}>
+        <Logo />
         <Stack display={{ xs: 'none', md: 'flex' }}>
           <List>
             {navbarData.map((link) => (
@@ -76,7 +78,7 @@ const Navbar = () => {
           </Stack>
         </Stack>
       )}
-    </>
+    </Container>
   );
 };
 
