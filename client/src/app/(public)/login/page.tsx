@@ -16,6 +16,7 @@ import { login } from '@/services/actions/login';
 import { setLoggedInUser } from '@/store/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import storage from '@/utils/storage';
+import Link from 'next/link';
 
 const loginSchema = z.object({
   email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
@@ -89,6 +90,14 @@ const LoginPage = () => {
             </Button>
           </Stack>
         </CustomForm>
+        <Stack>
+          <Typography variant='h6' align='center' color='text.primary'>
+            Are you new here?{' '}
+            <Link href='/register' style={{ textDecoration: 'none' }}>
+              Register now.
+            </Link>
+          </Typography>
+        </Stack>
       </Stack>
     </Container>
   );

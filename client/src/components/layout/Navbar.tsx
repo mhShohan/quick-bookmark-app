@@ -16,8 +16,6 @@ import {
   useTheme,
 } from '@mui/material';
 import styled from '@mui/material/styles/styled';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 
 // project imports
 import { navbarData } from '@/data';
@@ -112,9 +110,6 @@ const List = styled('ul')(({ theme }) => ({
     '& a': {
       color: 'white',
       textDecoration: 'none',
-      fontSize: '1.2rem',
-      fontWeight: 500,
-      transition: 'color 0.3s ease',
       '&:hover': {
         color: theme.palette.primary.light,
       },
@@ -139,9 +134,9 @@ const NavLinks = ({
         href={link.path}
         style={{
           color: pathname === link.path ? theme.palette.primary.light : 'white',
+          fontWeight: pathname === link.path ? 800 : 500,
           textDecoration: 'none',
-          fontSize: '1.2rem',
-          fontWeight: 500,
+          fontSize: '1.3rem',
           transition: 'color 0.3s ease',
         }}
         onClick={() => handleClick(false)}
