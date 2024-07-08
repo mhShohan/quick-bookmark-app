@@ -26,7 +26,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Ubuntu, sans-serif',
+    fontFamily: 'Glory, sans-serif',
   }
 })
 

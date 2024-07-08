@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Ubuntu } from 'next/font/google';
+import { Glory } from 'next/font/google';
 import { Toaster } from 'sonner';
 
 // mui
@@ -10,7 +10,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import Providers from '@/lib/Providers/Providers';
 import '@/styles/scrollBar.css';
 
-const ubuntu = Ubuntu({ subsets: ['cyrillic'], weight: ['300', '400', '500', '700'] });
+const glory = Glory({ subsets: ['latin'], weight: ['300', '400', '500', '700', '800'] });
 
 export const metadata: Metadata = {
   title: 'Next.js MUI5 Starter',
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <Providers>
       <html lang='en'>
-        <body className={ubuntu.className}>
+        <body className={glory.className}>
           <AppRouterCacheProvider>
             <>
               <CssBaseline />
