@@ -4,80 +4,97 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // mui
-import { Container, IconButton, Stack, useTheme } from '@mui/material';
+import {
+  Box,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import styled from '@mui/material/styles/styled';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
 // project imports
 import { navbarData } from '@/data';
-import { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Logo from '../UI/Logo';
+import { useAppSelector } from '@/store/hooks';
+import profileImg from '@/assets/profile.png';
+import Image from 'next/image';
+
+const settings = ['Profile', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
   const theme = useTheme();
+  const token = useAppSelector((state) => state.auth.token);
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
     <Container maxWidth='lg'>
-      <Stack justifyContent='space-between' direction='row' alignItems='center' sx={{ p: 2 }}>
+      <Stack justifyContent='space-between' direction='row' alignItems='center' sx={{ py: 2 }}>
         <Logo />
-        <Stack display={{ xs: 'none', md: 'flex' }}>
-          <List>
-            {navbarData.map((link) => (
-              <NavLinks key={link.id} link={link} handleClick={() => {}} />
-            ))}
-          </List>
-        </Stack>
-        <Stack display={{ xs: 'flex', md: 'none' }} alignItems='flex-end'>
-          <IconButton onClick={() => setIsMobileMenuOpen(true)}>
-            <MenuIcon
-              sx={{
-                color: '#fff',
-                fontSize: '2.2rem',
-                transition: 'all ease 200ms',
-                '&:hover': { color: theme.palette.primary.main },
-              }}
-            />
-          </IconButton>
-        </Stack>
-      </Stack>
-      {isMobileMenuOpen && (
-        <Stack
-          sx={{
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            right: '0',
-            bottom: '0',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            bgcolor: '#0F151C',
-            zIndex: 10,
-          }}
-        >
-          <IconButton onClick={() => setIsMobileMenuOpen(false)}>
-            <CloseIcon
-              sx={{
-                position: 'fixed',
-                top: '1rem',
-                right: '1rem',
-                color: '#fff',
-                fontSize: '2.2rem',
-                transition: 'all ease 200ms',
-                '&:hover': { color: theme.palette.primary.main },
-              }}
-            />
-          </IconButton>
-          <Stack alignItems='center'>
-            {navbarData.map((link) => (
-              <NavLinks key={link.id} link={link} handleClick={setIsMobileMenuOpen} />
-            ))}
+        {token ? (
+          <>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title='User'>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Image
+                    src={profileImg}
+                    alt='profile'
+                    width={50}
+                    height={50}
+                    style={{ marginTop: '1.1rem' }}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '80px' }}
+                id='menu-appbar'
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign='center'>{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </>
+        ) : (
+          <Stack display={{ xs: 'none', md: 'flex' }}>
+            <List>
+              {navbarData.map((link) => (
+                <NavLinks key={link.id} link={link} handleClick={() => {}} />
+              ))}
+            </List>
           </Stack>
-        </Stack>
-      )}
+        )}
+      </Stack>
     </Container>
   );
 };
@@ -99,7 +116,7 @@ const List = styled('ul')(({ theme }) => ({
       fontWeight: 500,
       transition: 'color 0.3s ease',
       '&:hover': {
-        color: theme.palette.primary.main,
+        color: theme.palette.primary.light,
       },
     },
   },
@@ -121,7 +138,7 @@ const NavLinks = ({
       <Link
         href={link.path}
         style={{
-          color: pathname === link.path ? theme.palette.primary.main : 'white',
+          color: pathname === link.path ? theme.palette.primary.light : 'white',
           textDecoration: 'none',
           fontSize: '1.2rem',
           fontWeight: 500,

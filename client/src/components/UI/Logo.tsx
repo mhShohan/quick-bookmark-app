@@ -5,11 +5,11 @@ const Logo = () => {
   return (
     <Link href='/' style={{ textDecoration: 'none' }}>
       <Box>
-        <Typography sx={{ fontSize: '2rem', fontWeight: '700' }}>
+        <Typography sx={{ fontSize: '2rem', fontWeight: '700', color: 'info.light' }}>
           Quick
           <Typography
             component='span'
-            sx={{ fontSize: '2rem', fontWeight: '700', color: 'info.main' }}
+            sx={{ fontSize: '2rem', fontWeight: '700', color: 'primary.light' }}
           >
             Bookmark
           </Typography>

@@ -49,13 +49,19 @@ const LoginPage = () => {
 
   return (
     <Container maxWidth='xs'>
-      <Stack py={4} px={6} boxShadow={24} mt={20} sx={{ borderRadius: '.6rem' }}>
+      <Stack
+        py={4}
+        px={6}
+        boxShadow={24}
+        mt={10}
+        sx={{ borderRadius: '.6rem', bgcolor: 'rgba(255,255,255,.7)' }}
+      >
         <Typography
           variant='h4'
           align='center'
           fontWeight='700'
+          color='#000'
           textTransform='uppercase'
-          color='#1A374D'
           pb={2}
         >
           Login
@@ -68,7 +74,7 @@ const LoginPage = () => {
           <Stack direction='column' gap={1}>
             <CustomInput name='email' label='Email' />
             <CustomInput name='password' label='Password' type='password' />
-            <Button type='submit' color='secondary'>
+            <Button type='submit' color='primary'>
               {isLoading ? (
                 <CircularProgress
                   color='warning'
