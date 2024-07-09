@@ -1,21 +1,23 @@
-import CustomForm from '@/components/shared/form/CustomForm';
-import CustomInput from '@/components/shared/form/CustomInput';
-import CustomSelectField from '@/components/shared/form/CustomSelect';
-import { useAddNewBookmarkMutation } from '@/store/api/bookmark.api';
-import { useAddNewFolderMutation } from '@/store/api/folder.api';
-import { IFolder } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack, TextField } from '@mui/material';
+import * as React from 'react';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
+// mui
+import { CircularProgress, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import * as React from 'react';
-import { toast } from 'sonner';
-import { z } from 'zod';
+
+// project imports
+import CustomForm from '@/components/shared/form/CustomForm';
+import CustomInput from '@/components/shared/form/CustomInput';
+import CustomSelectField from '@/components/shared/form/CustomSelect';
+import { useAddNewBookmarkMutation } from '@/store/api/bookmark.api';
+import { IFolder } from '@/types';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -113,7 +115,19 @@ const CreateBookmarkModel = ({ open, setOpen, folders }: CreateBookmarkModelProp
                   value: t,
                 }))}
               />
-              <Button type='submit'>{isLoading ? 'Adding new bookmark...' : 'Add Bookmark'}</Button>
+              <Button type='submit'>
+                {isLoading ? (
+                  <CircularProgress
+                    color='warning'
+                    sx={{
+                      width: '25px !important',
+                      height: '25px !important',
+                    }}
+                  />
+                ) : (
+                  'Add Bookmark'
+                )}
+              </Button>
             </Stack>
           </CustomForm>
         </DialogContent>

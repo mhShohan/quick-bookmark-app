@@ -1,5 +1,8 @@
-import { useAddNewFolderMutation } from '@/store/api/folder.api';
-import { TextField } from '@mui/material';
+import * as React from 'react';
+import { toast } from 'sonner';
+
+// mui
+import { CircularProgress, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,8 +10,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import * as React from 'react';
-import { toast } from 'sonner';
+
+// project imports
+import { useAddNewFolderMutation } from '@/store/api/folder.api';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -85,7 +89,19 @@ const CreateFolderModel = ({ open, setOpen }: CreateFolderModelProps) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit}>{isLoading ? 'Creating...' : 'Create'}</Button>
+          <Button onClick={handleSubmit}>
+            {isLoading ? (
+              <CircularProgress
+                color='warning'
+                sx={{
+                  width: '25px !important',
+                  height: '25px !important',
+                }}
+              />
+            ) : (
+              'Create'
+            )}
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

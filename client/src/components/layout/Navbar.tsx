@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 // mui
 import {
   Box,
+  Button,
   Container,
   IconButton,
   Menu,
@@ -16,24 +17,34 @@ import {
   useTheme,
 } from '@mui/material';
 import styled from '@mui/material/styles/styled';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 // project imports
 import { navbarData } from '@/data';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Logo from '../UI/Logo';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import profileImg from '@/assets/profile.png';
 import Image from 'next/image';
 import storage from '@/utils/storage';
-
-const settings = ['Profile', 'Dashboard', 'Logout'];
+import { logout } from '@/services/actions/logout';
+import { logoutUser } from '@/store/authSlice';
 
 const Navbar = () => {
   const theme = useTheme();
   const [isClient, setIsClient] = useState(false);
   const token = storage.getToken();
-
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    storage.removeToken();
+    dispatch(logoutUser());
+    router.push('/');
+  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -81,16 +92,48 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign='center'>{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <Stack sx={{ py: 1, px: 4 }} alignItems='center'>
+                  <Typography
+                    component={Link}
+                    href='/dashboard'
+                    sx={{
+                      textDecoration: 'none',
+                      fontSize: '1.3rem',
+                      color: theme.palette.primary.main,
+                      borderBottom: `2px solid transparent`,
+                      transition: 'border 0.3s ease',
+                      '&:hover': {
+                        borderBottom: `2px solid ${theme.palette.primary.main}`,
+                      },
+                    }}
+                  >
+                    My Bookmarks
+                  </Typography>
+                  <Typography
+                    component={Link}
+                    href='/profile'
+                    sx={{
+                      textDecoration: 'none',
+                      fontSize: '1.3rem',
+                      color: theme.palette.primary.main,
+                      borderBottom: `2px solid transparent`,
+                      transition: 'border 0.3s ease',
+                      '&:hover': {
+                        borderBottom: `2px solid ${theme.palette.primary.main}`,
+                      },
+                    }}
+                  >
+                    My Profile
+                  </Typography>
+                  <Button startIcon={<LogoutIcon />} sx={{ mt: 2 }} onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </Stack>
               </Menu>
             </Box>
           </>
         ) : (
-          <Stack display={{ xs: 'none', md: 'flex' }}>
+          <Stack>
             <List>
               {navbarData.map((link) => (
                 <NavLinks key={link.id} link={link} handleClick={() => {}} />
