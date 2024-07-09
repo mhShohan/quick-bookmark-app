@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 
 export const login = async (data: FieldValues) => {
   const res = await fetch(
-    `${config.baseUrl}/profile/login`,
+    `${config.baseUrl}/auth/login`,
     {
       method: "POST",
       headers: {

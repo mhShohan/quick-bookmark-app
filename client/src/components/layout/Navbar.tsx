@@ -19,17 +19,19 @@ import styled from '@mui/material/styles/styled';
 
 // project imports
 import { navbarData } from '@/data';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Logo from '../UI/Logo';
 import { useAppSelector } from '@/store/hooks';
 import profileImg from '@/assets/profile.png';
 import Image from 'next/image';
+import storage from '@/utils/storage';
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
   const theme = useTheme();
-  const token = useAppSelector((state) => state.auth.token);
+  const [isClient, setIsClient] = useState(false);
+  const token = storage.getToken();
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -41,11 +43,15 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Container maxWidth='lg'>
       <Stack justifyContent='space-between' direction='row' alignItems='center' sx={{ py: 2 }}>
         <Logo />
-        {token ? (
+        {token && isClient ? (
           <>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='User'>

@@ -49,7 +49,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              bgcolor: 'secondary.main',
+              bgcolor: 'primary.main',
             },
           }}
         >
@@ -63,7 +63,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              bgcolor: 'secondary.main',
+              bgcolor: 'primary.main',
             },
           }}
           open

@@ -69,7 +69,7 @@ const LoginPage = () => {
         </Typography>
         <CustomForm
           onSubmit={handleLogin}
-          defaultValues={{ email: '', password: '' }}
+          defaultValues={{ email: 'shohan@gmail.com', password: 'pass123' }}
           resolver={zodResolver(loginSchema)}
         >
           <Stack direction='column' gap={1}>
