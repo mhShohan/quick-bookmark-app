@@ -1,5 +1,7 @@
 export const tagTypes = {
-  demo: 'demo',
+  folder: 'FOLDER',
+  bookmark: 'BOOKMARK',
+  user: 'USER',
 }
 
 

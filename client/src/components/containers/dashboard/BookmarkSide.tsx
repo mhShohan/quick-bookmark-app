@@ -1,6 +1,7 @@
-import { Box, Button, Grid, InputBase, Pagination, Stack, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { Box, Button, Grid, InputBase, Pagination, Stack } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -44,7 +45,20 @@ const BookmarkSide = () => {
         spacing={1}
       >
         <Box>
-          <Button fullWidth>Add Bookmark</Button>
+          <Button
+            fullWidth
+            startIcon={<BookmarkAddIcon />}
+            sx={{
+              bgcolor: 'primary.light',
+              color: 'primary.main',
+              '&:hover': {
+                bgcolor: 'primary.light',
+                color: 'primary.main',
+              },
+            }}
+          >
+            Add Bookmark
+          </Button>
         </Box>
         <Box>
           <Search>
@@ -87,14 +101,14 @@ const SingleBookmark = () => {
     <Grid item xs={12} md={6}>
       <Box
         sx={{
-          bgcolor: 'primary.light',
+          bgcolor: 'info.light',
           borderRadius: 1,
           padding: '2px 8px',
           color: 'primary.main',
           cursor: 'pointer',
           transition: '0.3s',
           '&:hover': {
-            bgcolor: 'info.light',
+            bgcolor: 'primary.light',
           },
         }}
       >

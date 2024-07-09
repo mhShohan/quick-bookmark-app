@@ -1,28 +1,28 @@
 import { tagTypes } from "../tagTypes";
 import { baseApi } from "./baseApi";
 
-const demoApi = baseApi.injectEndpoints({
+const folderApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
 
-    get: build.query({
+    getAllFolder: build.query({
       query: () => ({
-        url: "/",
+        url: "/folders",
         method: "GET"
       }),
-      providesTags: [tagTypes.demo],
+      providesTags: [tagTypes.folder],
     }),
 
-    add: build.mutation({
+    addNewFolder: build.mutation({
       query: (payload) => ({
-        url: "/",
+        url: "/folders",
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: [tagTypes.demo],
+      invalidatesTags: [tagTypes.folder],
     }),
 
   }),
 });
 
 
-export const { useGetQuery, useAddMutation } = demoApi;
+export const { useGetAllFolderQuery, useAddNewFolderMutation } = folderApi;
