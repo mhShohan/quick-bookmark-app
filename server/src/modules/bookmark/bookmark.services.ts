@@ -44,6 +44,17 @@ class Services {
       searchQuery.type = query.type as string;
     }
 
+    if (query.folderId) {
+      searchQuery.folderId = query.folderId as string;
+    }
+
+    if (query.search) {
+      searchQuery.$or = [
+        { title: { $regex: query.search as string, $options: 'i' } },
+        { tags: { $regex: query.search as string, $options: 'i' } }
+      ]
+    }
+
     const totalCount = await this.model.countDocuments(searchQuery);
     const totalPage = Math.ceil(totalCount / limit);
 
