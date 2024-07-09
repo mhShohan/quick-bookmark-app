@@ -13,7 +13,7 @@ const loading = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        bgcolor: 'rgba(15, 21, 28, 0.7)',
+        bgcolor: 'rgba(15, 21, 28)',
       }}
     >
       <CircularLoader />

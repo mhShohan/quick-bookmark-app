@@ -13,7 +13,7 @@ import '@/styles/scrollBar.css';
 const glory = Glory({ subsets: ['latin'], weight: ['300', '400', '500', '700', '800'] });
 
 export const metadata: Metadata = {
-  title: 'Next.js MUI5 Starter',
+  title: 'QuickBookmark - Save and manage your bookmarks',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AppRouterCacheProvider>
             <>
               <CssBaseline />
-              <Toaster richColors duration={1000} />
+              <Toaster richColors duration={2000} />
               {children}
             </>
           </AppRouterCacheProvider>

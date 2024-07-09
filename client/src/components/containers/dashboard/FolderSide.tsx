@@ -3,12 +3,15 @@ import { TSetQuery } from '@/types';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Button, Divider, Grid, Stack } from '@mui/material';
+import CreateFolderModel from './CreateFolderModel';
+import { useState } from 'react';
 
 interface FolderSideProps {
   setQuery: TSetQuery;
 }
 
 const FolderSide = ({ setQuery }: FolderSideProps) => {
+  const [open, setOpen] = useState(false);
   const { data } = useGetAllFolderQuery(undefined);
 
   return (
@@ -32,9 +35,11 @@ const FolderSide = ({ setQuery }: FolderSideProps) => {
               color: 'primary.main',
             },
           }}
+          onClick={() => setOpen(true)}
         >
           Create New Folder
         </Button>
+        <CreateFolderModel open={open} setOpen={setOpen} />
 
         <Divider color='info' sx={{ my: 1 }} />
         <Button
