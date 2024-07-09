@@ -9,6 +9,11 @@ export interface IBookmark {
   type: string;
 }
 
+export interface IFolder {
+  _id: string;
+  name: string;
+}
+
 export type TSetQuery = Dispatch<
   SetStateAction<{
     folderId: string;

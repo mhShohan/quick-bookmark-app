@@ -1,5 +1,5 @@
 import { useGetAllFolderQuery } from '@/store/api/folder.api';
-import { TSetQuery } from '@/types';
+import { IFolder, TSetQuery } from '@/types';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Button, Divider, Grid, Stack } from '@mui/material';
@@ -8,11 +8,11 @@ import { useState } from 'react';
 
 interface FolderSideProps {
   setQuery: TSetQuery;
+  folders?: IFolder[];
 }
 
-const FolderSide = ({ setQuery }: FolderSideProps) => {
+const FolderSide = ({ setQuery, folders }: FolderSideProps) => {
   const [open, setOpen] = useState(false);
-  const { data } = useGetAllFolderQuery(undefined);
 
   return (
     <Grid item xs={12} md={3} m={2} height='100%'>
@@ -57,7 +57,7 @@ const FolderSide = ({ setQuery }: FolderSideProps) => {
           View All
         </Button>
 
-        {data?.data.map((folder: any) => (
+        {folders?.map((folder: any) => (
           <Button
             key={folder._id}
             onClick={() => setQuery((prev) => ({ ...prev, folderId: folder._id, search: '' }))}

@@ -37,7 +37,7 @@ const CustomSelectField = ({
           }}
           size={size}
           select
-          color='secondary'
+          color='primary'
           label={label}
           required={required}
           fullWidth={fullWidth}
