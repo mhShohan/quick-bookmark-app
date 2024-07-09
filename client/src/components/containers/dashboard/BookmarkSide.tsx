@@ -1,40 +1,22 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { Box, Button, Grid, InputBase, Pagination, Stack } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
+import SearchInput from '@/components/UI/SearchInput';
+import { IBookmark, TSetQuery } from '@/types';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import { Box, Button, Grid, Pagination, Stack } from '@mui/material';
+import Link from 'next/link';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-}));
+interface BookmarkSideProps {
+  bookmarks?: IBookmark[];
+  totalPage: number;
+  query: {
+    folderId?: string;
+    search?: string;
+    page: number;
+    limit: number;
+  };
+  setQuery: TSetQuery;
+}
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-  },
-}));
-
-const BookmarkSide = () => {
+const BookmarkSide = ({ bookmarks, query, setQuery, totalPage = 1 }: BookmarkSideProps) => {
   return (
     <Grid item xs={12} m={2} md={8}>
       <Stack
@@ -61,32 +43,29 @@ const BookmarkSide = () => {
           </Button>
         </Box>
         <Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
-          </Search>
+          <SearchInput setQuery={setQuery} />
         </Box>
       </Stack>
       <Stack my={2}>
         <Stack maxHeight='280px' minHeight='200px' overflow='auto'>
           <Grid container spacing={1}>
-            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-              <SingleBookmark key={i} />
+            {bookmarks?.map((bookmark: IBookmark) => (
+              <SingleBookmark key={bookmark._id} bookmark={bookmark} />
             ))}
           </Grid>
         </Stack>
         <Stack my={1} alignItems='center'>
           <Pagination
-            count={10}
-            color='secondary'
+            count={totalPage}
+            color='primary'
             sx={{
               '& .MuiPaginationItem-root': {
                 color: '#fff',
                 border: '1px solid #fff',
               },
             }}
+            page={query.page}
+            onChange={(e, page) => setQuery((prev) => ({ ...prev, page: page }))}
           />
         </Stack>
       </Stack>
@@ -96,24 +75,26 @@ const BookmarkSide = () => {
 
 export default BookmarkSide;
 
-const SingleBookmark = () => {
+const SingleBookmark = ({ bookmark }: { bookmark: IBookmark }) => {
   return (
     <Grid item xs={12} md={6}>
-      <Box
-        sx={{
-          bgcolor: 'info.light',
-          borderRadius: 1,
-          padding: '2px 8px',
-          color: 'primary.main',
-          cursor: 'pointer',
-          transition: '0.3s',
-          '&:hover': {
-            bgcolor: 'primary.light',
-          },
-        }}
-      >
-        Lorem ipsum dolor sit amet.
-      </Box>
+      <Link href={bookmark.link} target='_blank' style={{ textDecoration: 'none' }}>
+        <Box
+          sx={{
+            bgcolor: 'info.light',
+            borderRadius: 1,
+            padding: '2px 8px',
+            color: 'primary.main',
+            cursor: 'pointer',
+            transition: '0.3s',
+            '&:hover': {
+              bgcolor: 'primary.light',
+            },
+          }}
+        >
+          {bookmark.title}
+        </Box>
+      </Link>
     </Grid>
   );
 };

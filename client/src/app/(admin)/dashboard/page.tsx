@@ -3,6 +3,7 @@
 import BookmarkSide from '@/components/containers/dashboard/BookmarkSide';
 import FolderSide from '@/components/containers/dashboard/FolderSide';
 import Navbar from '@/components/layout/Navbar';
+import { useGetAllBookmarkQuery } from '@/store/api/bookmark.api';
 import { Container, Grid, Stack } from '@mui/material';
 import { useState } from 'react';
 
@@ -13,8 +14,7 @@ const DashboardPage = () => {
     page: 1,
     limit: 20,
   });
-
-  console.log(query);
+  const { data, isLoading } = useGetAllBookmarkQuery(query);
 
   return (
     <Stack
@@ -39,7 +39,12 @@ const DashboardPage = () => {
         >
           <Grid container height='100%'>
             <FolderSide setQuery={setQuery} />
-            <BookmarkSide />
+            <BookmarkSide
+              bookmarks={data?.data}
+              totalPage={data?.meta.totalPage}
+              setQuery={setQuery}
+              query={query}
+            />
           </Grid>
         </Stack>
       </Container>

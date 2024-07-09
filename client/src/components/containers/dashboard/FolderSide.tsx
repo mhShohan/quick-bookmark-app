@@ -1,18 +1,11 @@
-import { useGetAllFolderQuery } from '@/store/api/demo.api';
+import { useGetAllFolderQuery } from '@/store/api/folder.api';
+import { TSetQuery } from '@/types';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Button, Divider, Grid, Stack } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
 
 interface FolderSideProps {
-  setQuery: Dispatch<
-    SetStateAction<{
-      folderId: string;
-      search: string;
-      page: number;
-      limit: number;
-    }>
-  >;
+  setQuery: TSetQuery;
 }
 
 const FolderSide = ({ setQuery }: FolderSideProps) => {
