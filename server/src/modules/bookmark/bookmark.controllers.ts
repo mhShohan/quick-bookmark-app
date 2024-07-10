@@ -62,7 +62,7 @@ class Controllers {
 
   // update
   delete = asyncHandler(async (req, res) => {
-    const result = await this.services.delete(req.params._id);
+    const result = await this.services.delete(req.params.id);
 
     this.sendResponse(res, {
       success: true,

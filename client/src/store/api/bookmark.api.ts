@@ -22,8 +22,20 @@ const bookmarkApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.bookmark],
     }),
 
+    deleteBookmark: build.mutation({
+      query: (id) => ({
+        url: "/bookmarks/" + id,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.bookmark],
+    }),
+
   }),
 });
 
 
-export const { useGetAllBookmarkQuery, useAddNewBookmarkMutation } = bookmarkApi;
+export const {
+  useGetAllBookmarkQuery,
+  useAddNewBookmarkMutation,
+  useDeleteBookmarkMutation,
+} = bookmarkApi;

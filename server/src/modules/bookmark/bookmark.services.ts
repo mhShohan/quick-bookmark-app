@@ -93,7 +93,7 @@ class Services {
    * @param id 
    */
   async delete(id: string) {
-    this.model.findByIdAndDelete(id);
+    return this.model.findByIdAndDelete(id);
   }
 
   private async _isFolderExist(id: string, userId: string) {
@@ -104,7 +104,6 @@ class Services {
   }
 
   private async _isExist(id: string, userId: string) {
-    console.log({ id, userId })
     const folder = await this.model.findOne({ _id: id, userId });
 
     if (!folder) throw new APIError(404, 'Bookmark is not found')
