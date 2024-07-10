@@ -40,7 +40,7 @@ const DashboardPage = () => {
           border='1px solid #B6FFFA'
         >
           <Grid container height='100%'>
-            <FolderSide setQuery={setQuery} folders={foldersData?.data} />
+            <FolderSide query={query} setQuery={setQuery} folders={foldersData?.data} />
             <BookmarkSide
               bookmarks={data?.data}
               totalPage={data?.meta.totalPage}

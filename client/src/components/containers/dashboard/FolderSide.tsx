@@ -9,9 +9,15 @@ import { useState } from 'react';
 interface FolderSideProps {
   setQuery: TSetQuery;
   folders?: IFolder[];
+  query: {
+    folderId?: string;
+    search?: string;
+    page: number;
+    limit: number;
+  };
 }
 
-const FolderSide = ({ setQuery, folders }: FolderSideProps) => {
+const FolderSide = ({ query, setQuery, folders }: FolderSideProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,7 +52,7 @@ const FolderSide = ({ setQuery, folders }: FolderSideProps) => {
           startIcon={<AllInclusiveIcon />}
           onClick={() => setQuery((prev) => ({ ...prev, folderId: '', search: '' }))}
           sx={{
-            bgcolor: 'info.light',
+            bgcolor: query.folderId === '' ? 'primary.light' : 'info.light',
             color: 'primary.main',
             '&:hover': {
               bgcolor: 'primary.light',
@@ -62,7 +68,7 @@ const FolderSide = ({ setQuery, folders }: FolderSideProps) => {
             key={folder._id}
             onClick={() => setQuery((prev) => ({ ...prev, folderId: folder._id, search: '' }))}
             sx={{
-              bgcolor: 'info.light',
+              bgcolor: query.folderId === folder._id ? 'primary.light' : 'info.light',
               color: 'primary.main',
               '&:hover': {
                 bgcolor: 'primary.light',
