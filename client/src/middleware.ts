@@ -2,15 +2,10 @@ import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-const authRoutes = ['/login'];
+const authRoutes = ['/login', '/register'];
 const commonPrivateRoutes = [
   '/dashboard',
-  '/dashboard/technologies',
-  '/dashboard/educations',
-  '/dashboard/experiences',
-  '/dashboard/projects',
-  '/dashboard/profile',
-  '/dashboard/blogs',
+  '/profile',
 ];
 
 
@@ -33,7 +28,7 @@ export function middleware(request: NextRequest) {
   if (!token) {
     if (authRoutes.includes(pathname)) {
       return NextResponse.next();
-    } else {
+    } else if (commonPrivateRoutes.includes(pathname)) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
   }
@@ -44,6 +39,8 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/login',
+    '/register',
+    '/profile',
     '/dashboard/:page*',
   ],
 };
