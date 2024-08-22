@@ -23,9 +23,9 @@ class Services {
    * Read all records
    * @param
    */
-  async readAll(query: Record<string, unknown>) {
-    // return this.model.find(query).populate('userId');
-    return this.model.find(query);
+  async readAll(query: Record<string, unknown>, userId: string) {
+
+    return this.model.find({ userId: userId, ...query });
   }
 
   /**

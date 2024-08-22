@@ -23,7 +23,7 @@ class Controllers {
 
   // readAll
   readAll = asyncHandler(async (req, res) => {
-    const result = await this.services.readAll(req.query);
+    const result = await this.services.readAll(req.query, req.user._id);
 
     this.sendResponse(res, {
       success: true,

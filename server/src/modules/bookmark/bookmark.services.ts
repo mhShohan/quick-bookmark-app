@@ -29,12 +29,16 @@ class Services {
    * Read all records
    * @param query
    */
-  async readAll(query: Record<string, unknown>) {
+  async readAll(query: Record<string, unknown>, userId: string) {
     const page = query.page ? parseInt(query.page as string) : 1;
     const limit = query.limit ? parseInt(query.limit as string) : 20;
     const skip = (page - 1) * limit;
 
-    const searchQuery: Record<string, unknown> = query.title ? { title: { $regex: query.title as string, $options: 'i' } } : {};
+    const searchQuery: Record<string, unknown> = { userId: userId };
+
+    if (query.title) {
+      searchQuery.title = { $regex: query.title as string, $options: 'i' }
+    }
 
     if (query.tag) {
       searchQuery.tags = { $regex: query.tag as string, $options: 'i' }
