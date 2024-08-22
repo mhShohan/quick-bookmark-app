@@ -9,11 +9,16 @@ const HomePage = () => {
       <Stack>
         <Grid container mt={5}>
           <Grid item xs={12} md={8}>
-            <Stack spacing={1} justifyContent='center' height='100%'>
+            <Stack
+              spacing={1}
+              justifyContent='center'
+              textAlign={{ xs: 'center', md: 'left' }}
+              height='100%'
+            >
               <Typography variant='h3' fontWeight='800'>
                 Save and Organize <br /> Your Bookmarks Effortlessly.
               </Typography>
-              <Typography width='80%'>
+              <Typography>
                 Create an account to easily save, manage, and access your favorite bookmarks from
                 anywhere. Our intuitive platform ensures that your important links are always just a
                 click away, keeping your digital life organized and clutter-free.
@@ -24,7 +29,7 @@ const HomePage = () => {
             </Stack>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Stack>
+            <Stack marginTop={{ xs: 4, md: 1 }}>
               <Image
                 src={bannerImg}
                 alt='logo'

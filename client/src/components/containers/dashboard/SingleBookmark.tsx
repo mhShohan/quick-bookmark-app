@@ -36,7 +36,7 @@ const SingleBookmark = ({ bookmark }: { bookmark: IBookmark }) => {
           md={6}
           sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
         >
-          <Typography variant='h6' textTransform='capitalize' ml={1}>
+          <Typography variant='h6' lineHeight={0.9} my={1} textTransform='capitalize' ml={1}>
             {bookmark.title}
           </Typography>
         </Grid>
@@ -49,7 +49,7 @@ const SingleBookmark = ({ bookmark }: { bookmark: IBookmark }) => {
           target='_blank'
           sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
         >
-          <Typography fontWeight={500}>
+          <Typography fontWeight={500} ml={1}>
             Tags:{' '}
             {bookmark.tags.map((tag) => (
               <Chip

@@ -12,7 +12,10 @@ class Services {
     const hashedPassword = await password.hash(payload.password);
     payload.password = hashedPassword
 
-    return this.model.create(payload);
+    const user = await this.model.create(payload);
+
+    const authToken = token.generate({ _id: user._id, email: user.email });
+    return { token: authToken };
   }
 
   // login 

@@ -12,15 +12,14 @@ import { Box, Button, CircularProgress, Container, Grid, Stack, Typography } fro
 // project imports
 import CustomForm from '@/components/shared/form/CustomForm';
 import CustomInput from '@/components/shared/form/CustomInput';
-import { login } from '@/services/actions/login';
+import { register } from '@/services/actions/register';
 import { setLoggedInUser } from '@/store/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import storage from '@/utils/storage';
 import Link from 'next/link';
 
 const validationSchema = z.object({
-  firstName: z.string({ required_error: 'First name is required' }),
-  lastName: z.string({ required_error: 'Last name is required' }),
+  name: z.string({ required_error: 'Name is required' }),
   username: z.string({ required_error: 'Username is required' }),
   email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
   password: z
@@ -39,7 +38,7 @@ const RegisterPage = () => {
   const handleLogin = async (data: any) => {
     try {
       setIsLoading(true);
-      const res = await login(data);
+      const res = await register(data);
 
       if (res?.success) {
         toast.success('Login Successful');
@@ -60,9 +59,9 @@ const RegisterPage = () => {
     <Container maxWidth='md'>
       <Stack
         py={4}
-        px={6}
+        px={{ xs: 3, sm: 6 }}
         boxShadow={24}
-        mt={5}
+        my={5}
         sx={{ borderRadius: '.6rem', bgcolor: 'rgba(255,255,255,.7)' }}
       >
         <Typography
@@ -77,15 +76,12 @@ const RegisterPage = () => {
         </Typography>
         <CustomForm
           onSubmit={handleLogin}
-          defaultValues={{ email: '', password: '' }}
+          defaultValues={{ name: '', username: '', email: '', password: '', confirmPassword: '' }}
           resolver={zodResolver(validationSchema)}
         >
           <Grid container spacing={1}>
             <Grid item xs={12} md={6}>
-              <CustomInput name='firstName' label='First Name' />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <CustomInput name='lastName' label='Last Name' />
+              <CustomInput name='name' label='Full Name' />
             </Grid>
             <Grid item xs={12} md={6}>
               <CustomInput name='username' label='Username' />
