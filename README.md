@@ -4,7 +4,7 @@ A Full-stack web application to Save and Organize Bookmarks. Create an account t
 
 ### Live Site: https://quick-bookmark.vercel.app
 
-### Used Technologies: Typescript, Express.js, MongoDB, Mongoose, Next.js, Redux-toolkit, MUI, Zod
+### Used Technologies: Typescript, Express.js, MongoDB, Mongoose, JWT, Next.js, Redux-toolkit, MUI, Zod
 
 ![Img](cover.png)
 

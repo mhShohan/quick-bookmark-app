@@ -14,7 +14,7 @@ class Services {
 
     const user = await this.model.create(payload);
 
-    const authToken = token.generate({ _id: user._id, email: user.email });
+    const authToken = token.generate({ _id: user._id, email: user.email, role: user.role });
     return { token: authToken };
   }
 
@@ -25,7 +25,8 @@ class Services {
     if (user) {
       await password.verify(payload.password, user.password);
 
-      const authToken = token.generate({ _id: user._id, email: user.email });
+      const authToken = token.generate({ _id: user._id, email: user.email, role: user.role });
+
       return { token: authToken };
     } else {
       throw new APIError(httpStatus.BAD_REQUEST, 'WrongCredentials');

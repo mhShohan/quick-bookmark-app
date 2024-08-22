@@ -2,7 +2,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { Types } from "mongoose";
 
 export interface IJwtPayload extends JwtPayload {
-  _id: string;
+  _id: Types.ObjectId;
   email: string;
   role: string;
 }

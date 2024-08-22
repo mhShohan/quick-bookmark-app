@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import config from '../config';
 import APIError from '../errorHandler/APIError';
 import { IJwtPayload } from '../interfaces/common';
@@ -9,7 +9,7 @@ import { IJwtPayload } from '../interfaces/common';
  * @param payload 
  * @returns 
  */
-const generate = (payload: JwtPayload) => {
+const generate = (payload: IJwtPayload) => {
   return jwt.sign(payload, config.JWT_ACCESS_SECRET!, { expiresIn: config.JWT_EXPIRES_IN });
 };
 
