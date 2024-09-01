@@ -44,8 +44,28 @@ class Services {
     return this.model.findById(id);
   }
 
+  // get self profile
+  async getAllUsers(query: Record<string, unknown>) {
+    const page = query.page ? parseInt(query.page as string) : 1;
+    const limit = query.limit ? parseInt(query.limit as string) : 10;
+    const skip = (page - 1) * limit
 
+    const searchQuery = query.search ? { name: { $regex: query.search as string, $options: 'i' } } : {};
+    const count = await this.model.countDocuments(searchQuery);
+    const totalPages = Math.ceil(count / limit);
 
+    const users = await this.model.find(searchQuery).skip(skip).limit(limit);
+
+    return {
+      users,
+      meta: {
+        limit,
+        page,
+        totalPage: totalPages,
+        totalCount: count
+      }
+    }
+  }
 
 }
 

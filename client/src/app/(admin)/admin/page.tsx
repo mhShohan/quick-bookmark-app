@@ -1,12 +1,20 @@
 'use client';
 
-import Navbar from '@/components/layout/Navbar';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import UsersTable from '@/components/containers/admin/UsersTable';
+import Navbar from '@/components/layout/Navbar';
+import CustomPagination from '@/components/shared/CustomPagination';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Box, Container, Grid, Stack } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 
 const AdminDashboardPage = () => {
+  const [query, setQuery] = useState({
+    page: 1,
+    limit: 5,
+    search: '',
+  });
+
   return (
     <Stack
       sx={{
@@ -39,6 +47,7 @@ const AdminDashboardPage = () => {
                 boxShadow={24}
               >
                 <UsersTable />
+                <CustomPagination totalPage={1} query={query} setQuery={setQuery} />
               </Stack>
             </Grid>
             <Grid item xs={12} sm={4}>

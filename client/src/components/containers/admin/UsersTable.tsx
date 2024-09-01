@@ -5,9 +5,9 @@ import MuiTableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditNoteIcon from '@mui/icons-material/EditNote';
 import PreviewIcon from '@mui/icons-material/Preview';
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import EditNoteIcon from '@mui/icons-material/EditNote';
 
 function createData(name: string, email: string, role: string) {
   return { name, email, role };
@@ -44,7 +44,7 @@ export default function UsersTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableRow key={row.name}>
               <TableCell component='th' scope='row'>
                 {row.name}
               </TableCell>
@@ -57,7 +57,7 @@ export default function UsersTable() {
                       <PreviewIcon />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title='Edit User Role' placement='top'>
+                  {/* <Tooltip title='Edit User Role' placement='top'>
                     <IconButton>
                       <EditNoteIcon />
                     </IconButton>
@@ -66,7 +66,7 @@ export default function UsersTable() {
                     <IconButton>
                       <DeleteIcon />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                 </Stack>
               </TableCell>
             </TableRow>
