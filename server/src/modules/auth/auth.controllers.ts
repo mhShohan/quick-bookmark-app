@@ -35,7 +35,7 @@ class Controllers {
 
   // get self profile
   self = asyncHandler(async (req, res) => {
-    const result = await this.services.self(req.user._id);
+    const result = await this.services.self(req.user._id as string);
 
     this.sendResponse(res, {
       success: true,
@@ -45,9 +45,22 @@ class Controllers {
     });
   });
 
+  // get All Users
+  getAllUsers = asyncHandler(async (req, res) => {
+    const result = await this.services.getAllUsers(req.query);
+
+    this.sendResponse(res, {
+      success: true,
+      statusCode: this.STATUS.OK,
+      message: `${this.messageTitle} Fetched Successfully`,
+      data: result.users,
+      meta: result.meta,
+    });
+  });
+
   // update
   update = asyncHandler(async (req, res) => {
-    const result = await this.services.update(req.user._id, req.body);
+    const result = await this.services.update(req.user._id as string, req.body);
 
     this.sendResponse(res, {
       success: true,
