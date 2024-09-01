@@ -29,12 +29,14 @@ import Image from 'next/image';
 import storage from '@/utils/storage';
 import { logout } from '@/services/actions/logout';
 import { logoutUser } from '@/store/authSlice';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
   const theme = useTheme();
   const [isClient, setIsClient] = useState(false);
   const token = storage.getToken();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [role, setRole] = useState<string>('USER');
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -55,6 +57,11 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    if (token) {
+      const userWithRole = jwtDecode<any>((token as string) || '');
+      setRole(userWithRole.role as string);
+    }
+
     setIsClient(true);
   }, []);
 
@@ -93,6 +100,24 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 <Stack sx={{ py: 1, px: 4 }} alignItems='center'>
+                  {role === 'ADMIN' && (
+                    <Typography
+                      component={Link}
+                      href='/admin'
+                      sx={{
+                        textDecoration: 'none',
+                        fontSize: '1.3rem',
+                        color: theme.palette.primary.main,
+                        borderBottom: `2px solid transparent`,
+                        transition: 'border 0.3s ease',
+                        '&:hover': {
+                          borderBottom: `2px solid ${theme.palette.primary.main}`,
+                        },
+                      }}
+                    >
+                      Admin Dashboard
+                    </Typography>
+                  )}
                   <Typography
                     component={Link}
                     href='/dashboard'
@@ -109,6 +134,7 @@ const Navbar = () => {
                   >
                     My Bookmarks
                   </Typography>
+
                   <Typography
                     component={Link}
                     href='/profile'
